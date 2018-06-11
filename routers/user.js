@@ -121,14 +121,42 @@ const user =  {
         responseData.result.status = 'success';
         return responseData;
     },
+    edit: async (ctx) => {
+        const user = await User.update({_id: ctx.request.body._id},ctx.request.body);
+        responseData.result = {};
+        ctx.response.status = 200;
+        responseData.result.code = 1;
+        responseData.result.message = '修改成功。';
+        responseData.result.status = 'success';
+        return responseData;
+    },
+    delete: async (ctx) => {
+        const user = await User.remove({_id: ctx.request.body._id});
+        responseData.result = {};
+        ctx.response.status = 200;
+        responseData.result.code = 1;
+        responseData.result.message = '删除成功。';
+        responseData.result.status = 'success';
+        return responseData;
+    },
+    bulkDelete: async (ctx) => {
+        const user = await User.remove({_id: {$in: ctx.request.body.ids}});
+        responseData.result = {};
+        ctx.response.status = 200;
+        responseData.result.code = 1;
+        responseData.result.message = '批量删除成功。';
+        responseData.result.status = 'success';
+        return responseData;
+    },
     userInfo: async (ctx) => {
         const data = await User.find();
-        const datas = JSON.parse(JSON.stringify(data));
-        datas.forEach(item => {
-            delete item.password;
-        })
+        // 过滤密码
+        // const datas = JSON.parse(JSON.stringify(data));
+        // datas.forEach(item => {
+        //     delete item.password;
+        // })
         
-        responseData.result = datas;
+        responseData.result = data;
         ctx.response.status = 200;
         responseData.result.code = 1;
         responseData.result.message = '成功。';
