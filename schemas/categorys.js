@@ -20,4 +20,6 @@ module.exports = new mongoose.Schema({
         type: Date,
         default: ''
     },
+    counts: Number,
+    notes: String
 })

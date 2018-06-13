@@ -7,7 +7,7 @@
 const _ = require('lodash');
 const router = require('koa-router');
 const User = require('../models/user')
-const Content = require('../models/Content')
+// const Content = require('../models/Content')
 // 同一返回格式
 
 // //评论提交
@@ -115,13 +115,14 @@ const user =  {
             loginCounts: userInfo.loginCounts + 1,
             loginIp: loginIp,
         };
+        ctx.userInfo = userInfo;
         ctx.response.status = 200;
         responseData.result.code = 1;
         responseData.result.message = '登录成功。';
         responseData.result.status = 'success';
         return responseData;
     },
-    edit: async (ctx) => {
+    update: async (ctx) => {
         const user = await User.update({_id: ctx.request.body._id},ctx.request.body);
         responseData.result = {};
         ctx.response.status = 200;
