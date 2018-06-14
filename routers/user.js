@@ -150,14 +150,29 @@ const user =  {
         return responseData;
     },
     userInfo: async (ctx) => {
-        const data = await User.find();
+        const postData = {
+            pageIndex: Number(ctx.request.body.pageIndex),
+            pageSize: Number(ctx.request.body.pageSize),
+            pageIndexs: 0,
+            categorys: [],
+            counts: 0,
+        }
+        postData.counts = await User.count();
+        postData.pageIndexs = Math.ceil(postData.counts / postData.pageSize);
+        // 取值不能超过pageIndexs
+        postData.pageIndex = Math.min(postData.pageIndex, postData.pageIndexs);
+        postData.pageIndex = Math.max(postData.pageIndex, 1);
+
+        const skip = (postData.pageIndex - 1) * postData.pageSize;
+        const data = await User.find().sort({_id: -1}).limit(postData.pageSize).skip(skip);
         // 过滤密码
         // const datas = JSON.parse(JSON.stringify(data));
         // datas.forEach(item => {
         //     delete item.password;
         // })
-        
-        responseData.result = data;
+        responseData.result = {};
+        responseData.result.result = data;
+        responseData.result.totalCount = postData.counts;
         ctx.response.status = 200;
         responseData.result.code = 1;
         responseData.result.message = '成功。';

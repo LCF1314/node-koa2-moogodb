@@ -21,6 +21,7 @@ const category =  {
             ctx.response.status = 500;
             responseData.error.code = 5;
             responseData.error.message = '该分类名称已被占用！请重新输入！';
+            if(responseData.result) delete responseData.result;
             return responseData;
         }
         responseData.result = {};
@@ -73,8 +74,29 @@ const category =  {
         return responseData;
     },
     infoList: async (ctx) => {
-        const data = await Categorys.find().sort({_id: -1});
-        responseData.result = data;
+        const postData = {
+            pageIndex: Number(ctx.request.body.pageIndex),
+            pageSize: Number(ctx.request.body.pageSize),
+            pageIndexs: 0,
+            categorys: [],
+            counts: 0,
+        }
+        postData.counts = await Categorys.count();
+        postData.pageIndexs = Math.ceil(postData.counts / postData.pageSize);
+        // 取值不能超过pageIndexs
+        postData.pageIndex = Math.min(postData.pageIndex, postData.pageIndexs);
+        postData.pageIndex = Math.max(postData.pageIndex, 1);
+        const skip = (postData.pageIndex - 1) * postData.pageSize;
+        responseData.result = {};
+        const data = await Categorys.find().sort({_id: -1}).limit(postData.pageSize).skip(skip).populate('user');
+         // 过滤密码
+        const datas = JSON.parse(JSON.stringify(data));
+        datas.forEach(item => {
+            delete item.user.password;
+            item.username = item.user.username;
+        })
+        responseData.result.result = datas;
+        responseData.result.totalCount = postData.counts;
         ctx.response.status = 200;
         responseData.result.code = 1;
         responseData.result.message = '成功。';

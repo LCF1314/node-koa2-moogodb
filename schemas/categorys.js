@@ -21,5 +21,5 @@ module.exports = new mongoose.Schema({
         default: ''
     },
     counts: Number,
-    notes: String
+    notes: String,
 })
