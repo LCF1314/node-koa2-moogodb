@@ -19,7 +19,7 @@ module.exports = new mongoose.Schema({
     },
     // 内容标题
     title: String,
-    // 被人简介
+    // 内容简介
     description: {
         type: String,
         default: ''
