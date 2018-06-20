@@ -6,7 +6,7 @@ var mongoose = require('mongoose');
 // 用户表结构
 module.exports = new mongoose.Schema({
     // 关联字段 分类id
-    category:{
+    categoryId:{
         type: mongoose.Schema.Types.ObjectId,
         // 引用
         ref: 'Category'
@@ -17,6 +17,7 @@ module.exports = new mongoose.Schema({
         // 引用
         ref: 'User'
     },
+    categoryName: '',
     // 内容标题
     title: String,
     // 内容简介
@@ -29,6 +30,10 @@ module.exports = new mongoose.Schema({
         default: ''
     },
     addTime: {
+        type: Date,
+        default: ''
+    },
+    updateTime: {
         type: Date,
         default: ''
     },

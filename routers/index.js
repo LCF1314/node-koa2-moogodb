@@ -21,4 +21,8 @@ router.post('/categorys/infoList', async (ctx) => {ctx.body = await categorys.in
 // 内容增删改
 router.post('/content/create', async (ctx) => {ctx.body = await content.create(ctx);});
 router.post('/content/infoList', async (ctx) => {ctx.body = await content.infoList(ctx);});
+router.post('/content/update', async (ctx) => {ctx.body = await content.update(ctx);});
+router.post('/content/delete', async (ctx) => {ctx.body = await content.delete(ctx);});
+router.post('/content/bulkDelete', async (ctx) => {ctx.body = await content.bulkDelete(ctx);});
+router.post('/content/getModel', async (ctx) => {ctx.body = await content.getModel(ctx);});
 module.exports = router;
