@@ -9,7 +9,7 @@ const multer = require('koa-multer');
 var storage = multer.diskStorage({  
   //文件保存路径  
   destination: function (req, file, cb) {  
-    cb(null, 'C:/project/vue-webpack/uploadFile/');
+    cb(null, 'C:/www.lw1314.cn/uploadFile/');
   },  
   //修改文件名称  
   filename: function (req, file, cb) {  
