@@ -7,7 +7,6 @@
 // const _ = require('lodash');
 const router = require('koa-router');
 const Content = require('../models/Content')
-var fs = require('fs');//引用文件系统模块
 const responseData = {}
 const content =  {
     create: async (ctx) => {

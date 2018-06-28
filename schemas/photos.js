@@ -8,5 +8,6 @@ module.exports = new mongoose.Schema({
     // 用户名
     filePath: String,
     fileName: String,
+    originalname: String,
     link: String,
 })

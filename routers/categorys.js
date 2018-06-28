@@ -46,7 +46,6 @@ const category =  {
         return responseData;
     },
     update: async (ctx) => {
-        console.log(ctx.request.body)
         const category = await Categorys.update({_id: ctx.request.body._id},ctx.request.body);
         responseData.result = {};
         ctx.response.status = 200;

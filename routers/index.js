@@ -42,5 +42,7 @@ router.post('/content/bulkDelete', async (ctx) => { ctx.body = await content.bul
 router.post('/content/getModel', async (ctx) => { ctx.body = await content.getModel(ctx); });
 
 // 上传图片
-router.post('/upload', upload.single('file'), async (ctx, next) => {  ctx.body = await uploads.upload(ctx) });  
+router.post('/uploadFile', upload.single('file'), async (ctx, next) => {  ctx.body = await uploads.uploadFile(ctx) });  
+router.post('/getPhotos',  async (ctx, next) => {  ctx.body = await uploads.getPhotos(ctx) });  
+router.post('/deletePhoto', async (ctx, next) => {  ctx.body = await uploads.deletePhoto(ctx) });  
 module.exports = router;
