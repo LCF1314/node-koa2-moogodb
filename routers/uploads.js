@@ -6,6 +6,15 @@ const responseData = {};
 
 const uploads = {
     uploadFile: async (ctx) => {
+        if(await Photos.findOne({originalname: ctx.req.file.originalname})){
+            fs.unlink('C:/www.lw1314.cn/uploadFile/'+ ctx.req.file.filename);
+            responseData.error = {};
+            responseData.result = {};
+            ctx.response.status = 500;
+            responseData.error.code = 5;
+            responseData.error.message = '该图片已存在！请重新选择！';
+            return responseData;
+        }
         const photos = await new Photos({
             filePath: '/UploadFile/' + ctx.req.file.filename,
             fileName: ctx.req.file.filename,
