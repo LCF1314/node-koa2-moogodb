@@ -11,10 +11,10 @@ const uploads = {
             responseData.error = {};
             responseData.result = {};
             ctx.response.status = 500;
-            responseData.error.code = 5;
             responseData.error.message = '该图片已存在！请重新选择！';
-            return responseData;
+            return responseData.error;
         }
+
         const photos = await new Photos({
             filePath: '/UploadFile/' + ctx.req.file.filename,
             fileName: ctx.req.file.filename,
