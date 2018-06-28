@@ -16,6 +16,7 @@ const category =  {
         const counts = ctx.request.body.counts;
         const addTime = ctx.request.body.addTime;
         const user = ctx.request.body.userId.toString();
+        // 分类名是否已经被存在了，如果存在和用户名相同的数据，提示用户名已存在
         if(await Categorys.findOne({categoryName: categoryName})){
             responseData.error = {};
             ctx.response.status = 500;
@@ -25,7 +26,6 @@ const category =  {
             return responseData;
         }
         responseData.result = {};
-        // 用户名是否已经被注册了，如果存在和用户名相同的数据，提示用户名已注册
         const categorysInfo = await new Categorys({
             categoryName: categoryName,
             notes: notes,
@@ -41,7 +41,7 @@ const category =  {
         };
         ctx.response.status = 200;
         responseData.result.code = 1;
-        responseData.result.message = '注册成功。';
+        responseData.result.message = '新增成功。';
         responseData.result.status = 'success';
         return responseData;
     },
