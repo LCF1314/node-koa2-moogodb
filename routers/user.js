@@ -114,6 +114,7 @@ const user =  {
             lastLoginTime: userInfo.lastLoginTime,
             loginCounts: userInfo.loginCounts + 1,
             loginIp: loginIp,
+            isAdmin: userInfo.isAdmin,
         };
         ctx.userInfo = userInfo;
         ctx.response.status = 200;
